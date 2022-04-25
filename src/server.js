@@ -17,4 +17,16 @@ app.get('/*.css', function (req, res) {
     res.sendFile(path.join(__dirname+"/build/"+req.originalUrl));
 });
 
+app.get('/config', function (req, res) {
+    res.sendFile(path.join(__dirname+"/config.json"))
+})
+
+app.get('*.png', function (req, res) {
+    res.sendFile(path.join(__dirname+"/build/icons/"+req.originalUrl));
+})
+
+app.get('*.jpg', function (req, res) {
+    res.sendFile(path.join(__dirname+"/build/icons/"+req.originalUrl));
+})
+
 module.exports = app
