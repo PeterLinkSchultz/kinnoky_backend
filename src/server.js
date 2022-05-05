@@ -46,6 +46,7 @@ app.get('/exec', function (req, res) {
     const curl = new Curl();
 
     curl.setOpt(Curl.option.URL, getUrl(req.params['command']));
+    curl.setOpt(Curl.option.HTTP09_ALLOWED, true);
     curl.on('end', function (statusCode, data, headers) {
         console.info(statusCode);
         console.info('---');
