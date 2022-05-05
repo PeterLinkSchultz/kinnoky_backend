@@ -48,22 +48,21 @@ app.get('/exec', function (req, res) {
     curl.setOpt(Curl.option.URL, getUrl(req.query['command']));
     curl.setOpt(Curl.option.HTTP09_ALLOWED, true);
     curl.setOpt(Curl.option.HTTPGET, true);
-    console.info('url', getUrl(req.query['command']))
+    curl.setOpt(Curl.option.HTTP_VERSION, 0.9);
+    console.debug('i', curl.getInfo('PROTOCOL'));
 
     curl.on('end', function (statusCode, data, headers) {
-        console.info(statusCode);
-        console.info('---');
-        console.info(data);
-        console.info('---');
-        console.info(this.getInfo( 'TOTAL_TIME'));
+        console.debug(statusCode);
+        console.debug('---');
+        console.debug(this.getInfo( 'TOTAL_TIME'));
 
         this.close();
         res.send(data)
     });
     curl.on('error', function(error, code) {
-        console.error(code)
-        console.info('---');
-        console.error(error)
+        console.debug(code)
+        console.debug('---');
+        console.debug(error)
 
         res.status(500).send(error)
     })
