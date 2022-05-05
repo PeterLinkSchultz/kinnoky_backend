@@ -13,8 +13,8 @@ const config = {
 
 const getUrl = (command) => {
     return config.local
-        ? `http://${config.ip}/?command=${command}`
-        : `http://${config.ip}/smarthome.IMCPlatform/device/v1.0/sendCommand.action?deviceCode=8f9f6ac1068e78058cfeac45&command${command}`
+        ? `${config.ip}/?command=${command}`
+        : `${config.ip}/smarthome.IMCPlatform/device/v1.0/sendCommand.action?deviceCode=8f9f6ac1068e78058cfeac45&command${command}`
 
 }
 
@@ -47,6 +47,9 @@ app.get('/exec', function (req, res) {
 
     curl.setOpt(Curl.option.URL, getUrl(req.params['command']));
     curl.setOpt(Curl.option.HTTP09_ALLOWED, true);
+    curl.setOpt(Curl.option.HTTPGET, true);
+    console.info('url', getUrl(req.params['command']))
+
     curl.on('end', function (statusCode, data, headers) {
         console.info(statusCode);
         console.info('---');
