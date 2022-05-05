@@ -13,8 +13,9 @@ const config = {
 
 const getUrl = (command) => {
     return config.local
-        ? `http://${config.ip}/smarthome.IMCPlatform/device/v1.0/sendCommand.action?deviceCode=8f9f6ac1068e78058cfeac45&command${command}`
-        : `http://${config.ip}/?command=${command}`
+        ? `http://${config.ip}/?command=${command}`
+        : `http://${config.ip}/smarthome.IMCPlatform/device/v1.0/sendCommand.action?deviceCode=8f9f6ac1068e78058cfeac45&command${command}`
+
 }
 
 app.get('/', (req, res) => {
