@@ -56,6 +56,13 @@ app.get('/exec', function (req, res) {
         this.close();
         res.send(data)
     });
+    curl.on('error', function(error, code) {
+        console.error(code)
+        console.info('---');
+        console.error(error)
+
+        res.status(500).send(error)
+    })
     curl.perform();
 })
 
