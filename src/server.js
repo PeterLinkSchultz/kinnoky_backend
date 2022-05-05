@@ -47,13 +47,9 @@ app.get('/exec', function (req, res) {
 
     curl.setOpt(Curl.option.URL, getUrl(req.query['command']));
     curl.setOpt(Curl.option.HTTP09_ALLOWED, true);
-    // curl.setOpt(Curl.option.HTTPGET, true);
+    curl.setOpt(Curl.option.HTTPGET, true);
     curl.setOpt(Curl.option.HTTP_VERSION, 0.9);
-    console.debug('i', curl.getInfo('PROTOCOL'));
-
-    curl.on('data', function(data) {
-        console.debug('data', data);
-    })
+    curl.setOpt(Curl.option.CONNECTTIMEOUT, 30);
 
     curl.on('end', function (statusCode, data, headers) {
         console.debug(statusCode);
