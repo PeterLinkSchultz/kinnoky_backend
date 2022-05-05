@@ -45,10 +45,10 @@ app.get('*.jpg', function (req, res) {
 app.get('/exec', function (req, res) {
     const curl = new Curl();
 
-    curl.setOpt(Curl.option.URL, getUrl(req.params['command']));
+    curl.setOpt(Curl.option.URL, getUrl(req.query['command']));
     curl.setOpt(Curl.option.HTTP09_ALLOWED, true);
     curl.setOpt(Curl.option.HTTPGET, true);
-    console.info('url', getUrl(req.params['command']))
+    console.info('url', getUrl(req.query['command']))
 
     curl.on('end', function (statusCode, data, headers) {
         console.info(statusCode);
