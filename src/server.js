@@ -51,6 +51,7 @@ app.get('/exec', function (req, res) {
     curl.setOpt(Curl.option.HTTP_VERSION, 0.9);
     curl.setOpt(Curl.option.CONNECTTIMEOUT, 30);
 
+    const close = curl.close.bind( curl )
     curl.on('data', function(data) {
         const stringData = data.toString('utf8');
         const code = stringData.split(',').pop().toLowerCase()
@@ -60,16 +61,14 @@ app.get('/exec', function (req, res) {
             response.result = stringData
         } else {
             response.status = '1'
+            response.result = req.query['command']
         }
-        res.send(data.toString('utf8'))
+        res.send(response)
     })
 
     curl.on('error', function(error, code) {
-        console.debug(code)
-        console.debug('---');
-        console.debug(error)
-
-        res.status(500).send(error)
+        console.debug('error code', code)
+        console.debug('---')
     })
     curl.perform();
 })
