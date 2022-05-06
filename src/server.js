@@ -59,6 +59,10 @@ app.get('/exec', function (req, res) {
         this.close();
         res.send(data)
     });
+
+    curl.on('data', function(data) {
+        console.debug('data', data.toString('utf8'))
+    })
     curl.on('error', function(error, code) {
         console.debug(code)
         console.debug('---');
