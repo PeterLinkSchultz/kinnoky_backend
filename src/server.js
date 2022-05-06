@@ -49,13 +49,13 @@ app.get('/exec', function (req, res) {
     }
     curl.setOpt(Curl.option.URL, getUrl(req.query['command']));
     curl.setOpt(Curl.option.HTTP09_ALLOWED, true);
-    curl.setOpt(Curl.option.HTTPGET, true);
+    // curl.setOpt(Curl.option.HTTPGET, true);
     curl.setOpt(Curl.option.HTTP_VERSION, 0.9);
     // curl.setOpt(Curl.option.CONNECTTIMEOUT, 0);
 
     curl.on('data', function(data, curl) {
         if (status.finished) {
-            return;
+            // return;
         }
         const stringData = data.toString('utf8');
         const code = stringData.split(',').pop()
