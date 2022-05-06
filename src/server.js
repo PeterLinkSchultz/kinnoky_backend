@@ -51,18 +51,20 @@ app.get('/exec', function (req, res) {
     curl.setOpt(Curl.option.HTTP_VERSION, 0.9);
     curl.setOpt(Curl.option.CONNECTTIMEOUT, 30);
 
-    curl.on('end', function (statusCode, data, headers) {
-        console.debug(statusCode);
-        console.debug('---');
-        console.debug(this.getInfo( 'TOTAL_TIME'));
-
-        this.close();
-        res.send(data)
-    });
-
     curl.on('data', function(data) {
-        console.debug('data', data.toString('utf8'))
+        const stringData = data.toString('utf8');
+        const code = stringData.split(',').pop().toLowerCase()
+        const response = {}
+        if (code === 'ok') {
+            response.status = '0'
+            response.result = stringData
+        } else {
+            response.status = '1'
+        }
+        this.close(response)
+        res.send(data.toString('utf8'))
     })
+
     curl.on('error', function(error, code) {
         console.debug(code)
         console.debug('---');
