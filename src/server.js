@@ -44,15 +44,20 @@ app.get('*.jpg', function (req, res) {
 
 app.get('/exec', function (req, res) {
     const curl = new Curl();
-
+    const status = {
+        finished: false
+    }
     curl.setOpt(Curl.option.URL, getUrl(req.query['command']));
     curl.setOpt(Curl.option.HTTP09_ALLOWED, true);
     curl.setOpt(Curl.option.HTTPGET, true);
     curl.setOpt(Curl.option.HTTP_VERSION, 0.9);
-    curl.setOpt(Curl.option.CONNECTTIMEOUT, 30);
+    curl.setOpt(Curl.option.CONNECTTIMEOUT, 10);
 
     const close = curl.close.bind( curl )
-    curl.on('data', function(data) {
+    curl.on('data', function(data, curl) {
+        if (status.finished) {
+            return;
+        }
         const stringData = data.toString('utf8');
         const code = stringData.split(',').pop()
         const response = {}
@@ -65,12 +70,13 @@ app.get('/exec', function (req, res) {
             response.status = '1'
             response.result = req.query['command']
         }
+        status.finished = true
         res.send(response)
     })
 
     curl.on('error', function(error, code) {
         console.debug('error code', code)
-        //console.debug('error', error)
+        console.debug('error', error)
         console.debug('---')
     })
 
