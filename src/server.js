@@ -76,6 +76,7 @@ app.get('/exec', function (req, res) {
 
     curl.on('error', function(error, code) {
         console.debug('error code', code)
+        console.debug('error url', getUrl(req.query['command']))
         console.debug('error', error)
         console.debug('---')
     })
