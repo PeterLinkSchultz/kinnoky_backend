@@ -54,9 +54,9 @@ app.get('/exec', function (req, res) {
     const close = curl.close.bind( curl )
     curl.on('data', function(data) {
         const stringData = data.toString('utf8');
-        const code = stringData.split(',').pop().toLowerCase()
+        const code = stringData.split(',').pop()
         const response = {}
-        if (code === 'ok') {
+        if (code.toLowerCase() === 'ok') {
             response.status = '0'
             response.result = stringData
         } else {
