@@ -61,7 +61,6 @@ app.get('/exec', function (req, res) {
         } else {
             response.status = '1'
         }
-        this.close(response)
         res.send(data.toString('utf8'))
     })
 
