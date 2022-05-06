@@ -56,9 +56,9 @@ app.get('/exec', function (req, res) {
         const stringData = data.toString('utf8');
         const code = stringData.split(',').pop()
         const response = {}
-        console.debug('code', code.trim().toLowerCase())
-        console.debug('data', stringData)
-        if (code.trim().toLowerCase() === 'ok') {
+        const reg = new RegExp('ok')
+
+        if (reg.test(code.trim().toLowerCase())) {
             response.status = '0'
             response.result = stringData
         } else {
@@ -67,12 +67,14 @@ app.get('/exec', function (req, res) {
         }
         res.send(response)
     })
-
+/*
     curl.on('error', function(error, code) {
         console.debug('error code', code)
-        // console.debug('error', error)
+        console.debug('error', error)
         console.debug('---')
     })
+
+ */
     curl.perform();
 })
 
