@@ -67,14 +67,14 @@ app.get('/exec', function (req, res) {
         }
         res.send(response)
     })
-/*
+
     curl.on('error', function(error, code) {
         console.debug('error code', code)
-        console.debug('error', error)
+        //console.debug('error', error)
         console.debug('---')
     })
 
- */
+
     curl.perform();
 })
 
