@@ -56,6 +56,8 @@ app.get('/exec', function (req, res) {
         const stringData = data.toString('utf8');
         const code = stringData.split(',').pop()
         const response = {}
+        console.debug('code', code)
+        console.debug('data', stringData)
         if (code.toLowerCase() === 'ok') {
             response.status = '0'
             response.result = stringData
@@ -68,6 +70,7 @@ app.get('/exec', function (req, res) {
 
     curl.on('error', function(error, code) {
         console.debug('error code', code)
+        // console.debug('error', error)
         console.debug('---')
     })
     curl.perform();
