@@ -56,9 +56,9 @@ app.get('/exec', function (req, res) {
         const stringData = data.toString('utf8');
         const code = stringData.split(',').pop()
         const response = {}
-        console.debug('code', code)
+        console.debug('code', code.trim().toLowerCase())
         console.debug('data', stringData)
-        if (code.toLowerCase() === 'ok') {
+        if (code.trim().toLowerCase() === 'ok') {
             response.status = '0'
             response.result = stringData
         } else {
